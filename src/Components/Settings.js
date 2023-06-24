@@ -6,7 +6,7 @@ import BackButton from './Buttons/BackButton'
 
 const Settings = () => {
 
-    const { workMinutes, breakMinutes, setWorkMinutes, setBreakMinutes } = useContext(SettingsContext)
+    const { setShowSettings, workMinutes, breakMinutes, setWorkMinutes, setBreakMinutes } = useContext(SettingsContext)
 
     return (
         <div style={{ textAlign: "left" }}>
@@ -31,7 +31,7 @@ const Settings = () => {
                 max={120}
             />
             <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <BackButton />
+                <BackButton onClick={()=>setShowSettings(false)}/>
             </div>
         </div>
     )
