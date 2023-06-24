@@ -1,25 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ReactSlider from 'react-slider'
 import './Slider.css'
+import SettingsContext from './SettingsContext'
 
 const Settings = () => {
+
+const {workMinutes, breakMinutes} = useContext(SettingsContext)
+
     return (
         <div style={{ textAlign: "left" }}>
-            <label>Work minutes:</label>
+            <label>Work: {workMinutes}:00</label>
             <ReactSlider
                 className='slider'
                 thumbClassName='thumb' // это один из элементов ползунка, который можно использовать для перетаскивания и изменения выбранного значения ползунка.
                 trackClassName='track' //сам ползунок по которому перетпскиваем thumb
-                value={45}
+                value={workMinutes}
                 min={1}
                 max={120}
             />
-            <label>Break minutes:</label>
+            <label>Break: {breakMinutes}:00</label>
             <ReactSlider
                 className='slider green'
                 thumbClassName='thumb' 
                 trackClassName='track'
-                value={45}
+                value={breakMinutes}
                 min={1}
                 max={120}
             />
