@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&family=Roboto&display=swap');
+
+:root {
+  --red: #f54e4e;
+  --green: #4aec8c;
+}
+
 body {
   background-color: #30384b;
   color: #eee;
+  font-family: 'Roboto', sans-serif;
 }
 
 main {
@@ -32,4 +40,11 @@ button.with-text svg {
   width: 36px;
   float: left;
   margin-right: 5px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  text-transform: capitalize;
 }
