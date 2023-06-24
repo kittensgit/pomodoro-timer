@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import ReactSlider from 'react-slider'
 import './Slider.css'
 import SettingsContext from './SettingsContext'
+import BackButton from './Buttons/BackButton'
 
 const Settings = () => {
 
@@ -29,6 +30,9 @@ const Settings = () => {
                 min={1}
                 max={120}
             />
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <BackButton />
+            </div>
         </div>
     )
 }
