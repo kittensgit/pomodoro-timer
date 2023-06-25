@@ -8,7 +8,7 @@ import SettingsContext from './SettingsContext';
 
 const Timer = () => {
 
-    const [isPaused, setIsPaused] = useState(false)
+    const [isPaused, setIsPaused] = useState(true)
     const [secondsLeft, setSecondsLeft] = useState(0)
     const [mode, setMode] = useState('work') // work/break/null
     const { workMinutes, breakMinutes, showSettings, setShowSettings } = useContext(SettingsContext)
@@ -18,7 +18,8 @@ const Timer = () => {
     const modeRef = useRef(mode)
 
     const initTimer = () => {
-        setSecondsLeft(workMinutes * 60)
+        secondsLeftRef.current = workMinutes * 60
+        setSecondsLeft(secondsLeftRef.current)
     }
 
     const switchMode = () => {
@@ -48,25 +49,34 @@ const Timer = () => {
             tick()
         }, 1000)
 
-        return clearInterval(interval);
+        return () => clearInterval(interval);
     }, [showSettings, setShowSettings])
 
     const red = '#f54e4e';
     const green = '#4aec8c'
 
+    const totalSeconds = mode === 'work' ? workMinutes * 60 : breakMinutes * 60
+    const persentpage = Math.round(secondsLeft / totalSeconds * 100)
+
+    const minutes = Math.floor(secondsLeft / 60);
+    let seconds = secondsLeft % 60;
+    if (seconds < 10) seconds = '0' + seconds
+
     return (
         <div>
             <CircularProgressbar
-                value={60}
-                text={`60%`}
+                value={persentpage}
+                text={minutes + ':' + seconds}
                 styles={buildStyles({
                     textColor: '#fff',
-                    pathColor: red,
+                    pathColor: mode === 'work' ? red : green,
                     trailColor: 'rgba(255, 255, 255, .2)'
                 })}
             />
             <div style={{ marginTop: '20px' }}>
-                {isPaused ? <PlayButton /> : <PauseButton />}
+                {isPaused
+                    ? <PlayButton onClick={() => { setIsPaused(false); isPausedRef.current = false }} />
+                    : <PauseButton onClick={() => { setIsPaused(true); isPausedRef.current = true }} />}
             </div>
             <div style={{ marginTop: '20px' }}>
                 <SettingsButton onClick={() => setShowSettings(true)} />
